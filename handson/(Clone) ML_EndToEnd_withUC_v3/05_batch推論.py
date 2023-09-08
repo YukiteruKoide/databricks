@@ -51,13 +51,11 @@ loaded_model = mlflow.pyfunc.spark_udf(spark, model_uri=f"models:/{model_name}/{
 df = spark.read.table('churn_features')
 print(f'Total data numbers are {df.count()}')
 
+# COMMAND ----------
+
 # モデルを適用して推定する(スコアリング)
 # y_test の結果(label)を予測
 pred_df = df.withColumn('prediction', loaded_model(*df.columns))
-
-# COMMAND ----------
-
-display(df)
 
 # COMMAND ----------
 
